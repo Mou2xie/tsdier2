@@ -1,6 +1,5 @@
 import { sendMessage } from "webext-bridge/content-script";
 
-
 export default defineContentScript({
   // match all urls
   matches: ["*://*/*"],
@@ -24,7 +23,11 @@ export default defineContentScript({
           let sentence = findRelatedSentence(selectedText, textContent!.split('.'));
 
           // send the selected word package to the background
-          sendMessage('selectedWordPackage', { selectedText, sentence, currentURL }, 'background');
+          sendMessage('selectedWordPackage', {
+            selectedText,
+            sentence,
+            currentURL
+          }, 'background');
         }
       }
     });

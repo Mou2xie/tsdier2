@@ -5,9 +5,10 @@ export default defineConfig({
   extensionApi: 'chrome',
   modules: ['@wxt-dev/module-react'],
   srcDir: 'src',
-  manifest:{
-    action:{
-      default_title:'Click to open transider',
-    }
+  manifest: {
+    action: {
+      default_title: 'Click to open transider',
+    },
+    permissions: ['storage'],
   },
 });

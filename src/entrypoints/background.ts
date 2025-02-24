@@ -1,7 +1,7 @@
 import { onMessage } from "webext-bridge/background";
+import { storage } from 'wxt/storage';
 
 export default defineBackground(() => {
-  console.log('Hello background!', { id: browser.runtime.id });
 
   // set the action click behavior to open the panel
   chrome.action.onClicked.addListener(() => {
@@ -17,7 +17,9 @@ export default defineBackground(() => {
 
     console.log(selectedWordPackage);
 
-    // open side panel
+    storage.setItem('local:selectedWordPackage', selectedWordPackage);
+
+    // open the side panel
     chrome.sidePanel.open({
       tabId
     });
