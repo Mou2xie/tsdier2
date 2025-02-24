@@ -1,4 +1,6 @@
 import { sendMessage } from "webext-bridge/content-script";
+import { SelectedWordPackage } from "@/models/SelectedWordPackage";
+import { Message } from "@/models/Message";
 
 export default defineContentScript({
   // match all urls
@@ -22,12 +24,14 @@ export default defineContentScript({
           // get the sentence that contains the selected word
           let sentence = findRelatedSentence(selectedText, textContent!.split('.'));
 
-          // send the selected word package to the background
-          sendMessage('selectedWordPackage', {
+          const selectedWordPackage: SelectedWordPackage = {
             selectedText,
             sentence,
             currentURL
-          }, 'background');
+          };
+
+          // send the selected word package to the background
+          sendMessage(Message.SendSelectedWordPackage, selectedWordPackage, 'background');
         }
       }
     });
@@ -36,7 +40,7 @@ export default defineContentScript({
 
 
 //find which sentence the selected word is in.
-function findRelatedSentence(selectedText: string, sentences: string[]) {
+function findRelatedSentence(selectedText: string, sentences: string[]): string {
   let sentence: string = '';
   const matches = sentences.filter((item) => new RegExp('\\b' + selectedText + '\\b', 'i').test(item));
   if (matches.length > 0) {
@@ -47,7 +51,7 @@ function findRelatedSentence(selectedText: string, sentences: string[]) {
 }
 
 //if the selected word is in english or empty.
-function isEnglishString(selectedText: string) {
+function isEnglishString(selectedText: string): boolean {
   let englishRegex = /^[a-zA-Z]+$/;
   return englishRegex.test(selectedText);
 }
