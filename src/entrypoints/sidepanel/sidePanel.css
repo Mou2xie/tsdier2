@@ -13,24 +13,13 @@ main {
     color: #3B4349;
 }
 
-.top-bar>img {
-    width: 2rem;
-}
-
 .phonetic-bar {
     margin-top: 10px;
     color: #65E3FF;
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.phonetic-bar {
     font-size: 1.2rem;
-}
-
-.phonetic-bar>img {
-    width: 1.6rem;
 }
 
 hr {
@@ -95,76 +84,14 @@ hr {
     flex-direction: column;
 }
 
-.notebook {
-    height: 45px;
-    background: #65E3FF;
-    display: flex;
-    align-items: center;
-    border-radius: 100px;
-    padding: 0px 20px;
-}
-
-.notebook>img {
-    width: 1.6rem;
-}
-
-.notebook>p {
-    color: white;
-    margin-left: 10px;
-    font-size: 1.1rem;
-}
-
-.notebook>div {
-    flex: 1;
-    text-align: right;
-    font-size: 1.1rem;
-    color: white;
-}
-
 .tool-bar {
     margin-top: 15px;
     display: flex;
     align-items: center;
 }
 
-input[type="radio"] {
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 1px solid #B3C0CC;
-    border-radius: 50%;
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
-}
-
-input[type="radio"]:checked {
-    border-color: #65E3FF;
-}
-
-input[type="radio"]::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background-color: transparent;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  input[type="radio"]:checked::before {
-    background-color: #65E3FF;
-  }
-
-.tool-bar>label {
-    margin-left: 3px;
+.tool-bar>div:first-child {
     flex: 1;
-    font-size: 15px;
-    color: #B3C0CC;
-    font-size: 14px;
-    margin-top: 3px;
 }
 
 .tool-bar>img {

@@ -1,0 +1,9 @@
+
+.audioPlayer {
+    width: 1.6rem;
+}
+
+.audioPlayer:hover {
+    cursor: pointer;
+    scale: 1.1;
+}

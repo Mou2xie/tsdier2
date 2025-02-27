@@ -7,10 +7,10 @@ import { ISupabaseRes } from '@/models/ISupabaseRes';
 import { ITranslation } from '@/models/ITranslation';
 import { supabaseClient } from '@/utils/supabaseClient';
 import { translationHandler } from '@/utils/translationHandler';
-import star_line from '@/assets/images/star-line.svg';
-import star_fill from '@/assets/images/star-fill.svg';
-import playAudio from '@/assets/images/volume-up-fill.svg';
-import notebook from '@/assets/images/bookmark-line.svg';
+import { AudioPlayer } from '@/components/AudioPlayer/AudioPlayer';
+import { NoteBook } from '@/components/NoteBook/NoteBook';
+import { SaveWord } from '@/components/SaveWord/SaveWord';
+import { SidePanelController } from '@/components/sidePanelController/sidePanelController';
 import setting from '@/assets/images/settings-line.svg';
 
 function SidePanel() {
@@ -57,58 +57,62 @@ function SidePanel() {
 
   return (
     <main>
-      <section className='top-bar'>
-        <h1>{translation?.word}</h1>
-        <img src={star_line} alt="favorite" />
-      </section>
-      <section className='phonetic-bar'>
-        {translation?.phonetic ? <div>{`/ ${translation?.phonetic} /`}</div> : null}
-        <img src={playAudio} alt="play audio" />
-      </section>
-      <hr />
-      <section className='translation-section'>
-        {
-          translation?.translation.map((item, index) => (
-            <div key={index} className='translation-item'>
-              <div>{`${item[0]}.`}</div>
-              <div>{item[1]}</div>
-            </div>
-          ))
-        }
-      </section>
-      <hr />
-      <section className='definition-section'>
-        {
-          translation?.definition?.map((item, index) => (
-            <div key={index} className='definition-item'>
-              <div>{`${item[0]}.`}</div>
-              <div>{item[1]}</div>
-            </div>
-          ))
-        }
-      </section>
-      <hr />
-      <section className='exchange-section'>
-        {
-          translation?.exchange?.map((item, index) => (
-            <div key={index} className='exchange-item'>
-              <div>{item[0]}</div>
-              <div>{item[1]}</div>
-            </div>
-          ))
-        }
-      </section>
-      <section className='spacer'>
-      </section>
+      {!translation ? (
+        <div>No translation available</div>
+      ) : (
+        <>
+          <section className='top-bar'>
+            <h1>{translation?.word}</h1>
+            <SaveWord selectedWordPackage={selectedWordPackage!}></SaveWord>
+          </section>
+          <section className='phonetic-bar'>
+            {translation?.phonetic ? <div>{`/ ${translation?.phonetic} /`}</div> : null}
+            <AudioPlayer word={translation?.word!}></AudioPlayer>
+          </section>
+          <hr />
+          <section className='translation-section'>
+            {
+              translation?.translation.map((item, index) => (
+                <div key={index} className='translation-item'>
+                  <div>{`${item[0]}.`}</div>
+                  <div>{item[1]}</div>
+                </div>
+              ))
+            }
+          </section>
+          <hr />
+          <section className='definition-section'>
+            {
+              translation?.definition?.map((item, index) => (
+                <div key={index} className='definition-item'>
+                  <div>{`${item[0]}.`}</div>
+                  <div>{item[1]}</div>
+                </div>
+              ))
+            }
+          </section>
+          <hr />
+          <section className='exchange-section'>
+            {
+              translation?.exchange?.map((item, index) => (
+                <div key={index} className='exchange-item'>
+                  <div>{item[0]}</div>
+                  <div>{item[1]}</div>
+                </div>
+              ))
+            }
+          </section>
+          <section className='spacer'>
+          </section>
+        </>
+      )}
+
       <section className='bottom-bar'>
-        <div className='notebook'>
-          <img src={notebook} alt="notebook" />
-          <p>单词本</p>
-          <div>27</div>
-        </div>
+        <NoteBook></NoteBook>
         <div className='tool-bar'>
-          <input type="radio" id='radio' />
-          <label htmlFor='radio'>停止弹出侧边栏</label>
+          <div>
+            <SidePanelController></SidePanelController>
+          </div>
           <img src={setting} alt="setting" />
         </div>
       </section>

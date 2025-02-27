@@ -1,0 +1,8 @@
+.saveWord {
+    width: 2rem;
+}
+
+.saveWord:hover {
+    cursor: pointer;
+    scale: 1.1;
+}

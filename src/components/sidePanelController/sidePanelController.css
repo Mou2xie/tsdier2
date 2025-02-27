@@ -1,0 +1,44 @@
+.sidePanelControllerContainer {
+    display: flex;
+    align-items: center;
+}
+
+.sidePanelControllerInput[type="radio"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #B3C0CC;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.sidePanelControllerInput[type="radio"]:checked {
+    border-color: #65E3FF;
+}
+
+.sidePanelControllerInput[type="radio"]::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background-color: transparent;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sidePanelControllerInput[type="radio"]:checked::before {
+    background-color: #65E3FF;
+}
+
+.sidePanelControllerLabel {
+    margin-left: 3px;
+    font-size: 15px;
+    color: #B3C0CC;
+    font-size: 14px;
+    margin-top: 3px;
+    user-select: none;
+}
