@@ -31,7 +31,7 @@ export default defineContentScript({
           };
 
           // send the selected word package to the background
-          sendMessage(Message.SendSelectedWordPackage, selectedWordPackage, 'background');
+          sendMessage(Message.SEND_SELECTED_WORD_PACKAGE, selectedWordPackage, 'background');
         }
       }
     });

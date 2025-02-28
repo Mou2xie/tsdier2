@@ -10,22 +10,23 @@ import { translationHandler } from '@/utils/translationHandler';
 import { AudioPlayer } from '@/components/AudioPlayer/AudioPlayer';
 import { NoteBook } from '@/components/NoteBook/NoteBook';
 import { SaveWord } from '@/components/SaveWord/SaveWord';
-import { SidePanelController } from '@/components/sidePanelController/sidePanelController';
+import { SidePanelController } from '@/components/SidePanelController/SidePanelController';
 import setting from '@/assets/images/settings-line.svg';
 
 function SidePanel() {
 
   const [selectedWordPackage, setSelectedWordPackage] = useState<SelectedWordPackage | undefined>(undefined);
   const [translation, setTranslation] = useState<ITranslation | undefined>(undefined);
+  const [triggerNoteBookRefresh, setTriggerNoteBookRefresh] = useState(false);
 
   useEffect(() => {
     // retrieve selected word package from local storage initially
-    storage.getItem<SelectedWordPackage>(LocalStorage.SelectedWordPackage).then((value) => {
+    storage.getItem<SelectedWordPackage>(LocalStorage.SELECTED_WORD_PCKAGE).then((value) => {
       setSelectedWordPackage(value!);
     });
 
     // watch for changes in selected word package
-    const unwatch = storage.watch<SelectedWordPackage>(LocalStorage.SelectedWordPackage, (newValue) => {
+    const unwatch = storage.watch<SelectedWordPackage>(LocalStorage.SELECTED_WORD_PCKAGE, (newValue) => {
       setSelectedWordPackage(newValue!);
     });
 
@@ -63,7 +64,7 @@ function SidePanel() {
         <>
           <section className='top-bar'>
             <h1>{translation?.word}</h1>
-            <SaveWord selectedWordPackage={selectedWordPackage!}></SaveWord>
+            <SaveWord selectedWordPackage={selectedWordPackage!} onChange={() => setTriggerNoteBookRefresh(!triggerNoteBookRefresh)}></SaveWord>
           </section>
           <section className='phonetic-bar'>
             {translation?.phonetic ? <div>{`/ ${translation?.phonetic} /`}</div> : null}
@@ -108,13 +109,16 @@ function SidePanel() {
       )}
 
       <section className='bottom-bar'>
-        <NoteBook></NoteBook>
+        <div>
+          <NoteBook triggerNoteBookRefresh={triggerNoteBookRefresh}></NoteBook>
+        </div>
         <div className='tool-bar'>
           <div>
             <SidePanelController></SidePanelController>
           </div>
           <img src={setting} alt="setting" />
         </div>
+        <div className='mask'></div>
       </section>
     </main>
   );

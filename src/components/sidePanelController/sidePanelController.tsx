@@ -1,4 +1,4 @@
-import './sidePanelController.css'
+import './SidePanelController.css'
 import { useState } from 'react';
 
 function SidePanelController() {

@@ -3,30 +3,28 @@ import star_fill from '@/assets/images/star-fill.svg';
 import './SaveWord.css';
 import { useState, useEffect } from 'react';
 import { SelectedWordPackage } from '@/models/SelectedWordPackage';
-import { IWordStoredData } from '@/models/ISavedWordData';
-import { addWord, removeWord, checkIfWordExists } from '@/utils/wordStorageHandler';
+import { StoredWord } from '@/models/StoredWord';
 
-function SaveWord({ selectedWordPackage }: { selectedWordPackage: SelectedWordPackage }) {
-
-    const wordData: IWordStoredData = {
-        word: selectedWordPackage.selectedText,
-        sentence: selectedWordPackage.sentence,
-        articleURL: selectedWordPackage.currentURL,
-        timestamp: new Date()
-    }
+function SaveWord({ selectedWordPackage, onChange }: { selectedWordPackage: SelectedWordPackage, onChange: () => void }) {
 
     const [isSaved, setIsSaved] = useState(false);
 
+    // Check if the word is saved when the selectedWordPackage(selected word) changes
     useEffect(() => {
-        setIsSaved(checkIfWordExists(selectedWordPackage.selectedText));
+        StoredWord.checkIfWordExists(selectedWordPackage.selectedText).then((bool) => {
+            setIsSaved(bool);
+        });
     }, [selectedWordPackage]);
 
-    const handleSave = () => {
+    // Save or remove the word from the storage when the star icon is clicked
+    const handleSave = async () => {
         if (isSaved) {
-            removeWord(selectedWordPackage.selectedText);
+            await StoredWord.removeWord(selectedWordPackage.selectedText);
         } else {
-            addWord(wordData);
+            const storedWord = new StoredWord(selectedWordPackage.selectedText, selectedWordPackage.sentence, selectedWordPackage.currentURL);
+            await storedWord.addWord();
         }
+        onChange();
         setIsSaved(!isSaved);
     }
 

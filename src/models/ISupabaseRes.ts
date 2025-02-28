@@ -1,3 +1,4 @@
+// Definition: Interface for Supabase client response
 
 interface ISupabaseRes {
     id: number;

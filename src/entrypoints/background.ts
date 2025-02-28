@@ -12,13 +12,13 @@ export default defineBackground(() => {
   });
 
   // listen for selected word from the content script
-  onMessage(Message.SendSelectedWordPackage, (message) => {
+  onMessage(Message.SEND_SELECTED_WORD_PACKAGE, (message) => {
 
     const selectedWordPackage: SelectedWordPackage = message.data as SelectedWordPackage;
     const { tabId } = message.sender;
 
     // save the selected word package to the local storage (for the side panel to access)
-    storage.setItem(LocalStorage.SelectedWordPackage, selectedWordPackage);
+    storage.setItem(LocalStorage.SELECTED_WORD_PCKAGE, selectedWordPackage);
 
     // open the side panel
     chrome.sidePanel.open({

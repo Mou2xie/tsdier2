@@ -1,0 +1,25 @@
+main {
+    padding: 20px;
+}
+
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.title {
+    color: #3B4349;
+    font-size: 22px;
+}
+
+.title span {
+    margin: 0px 5px;
+    color: #65E3FF;
+}
+
+.title-bar img {
+    width: 30px;
+
+}

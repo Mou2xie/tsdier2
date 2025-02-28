@@ -1,5 +1,6 @@
+// Definition: Enum for LocalStorage types
 
-const enum LocalStorage {
-    SelectedWordPackage = 'local:selectedWordPackage',
+enum LocalStorage {
+    SELECTED_WORD_PCKAGE = 'local:selectedWordPackage',
 }
 export { LocalStorage }

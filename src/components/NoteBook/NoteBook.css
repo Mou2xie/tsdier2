@@ -7,6 +7,11 @@
     padding: 0px 20px;
 }
 
+.notebook:hover {
+    background: #65d3ff;
+    cursor: pointer;
+}
+
 .notebook>img {
     width: 1.6rem;
 }

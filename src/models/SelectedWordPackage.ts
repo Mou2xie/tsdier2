@@ -1,4 +1,4 @@
-
+// Definition of the SelectedWordPackage type
 import { JsonValue } from 'type-fest';
 
 type SelectedWordPackage = JsonValue & {

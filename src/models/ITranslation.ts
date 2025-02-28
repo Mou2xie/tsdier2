@@ -1,4 +1,5 @@
-
+// Definition of the translation interface
+// Used for sidepanel display
 
 interface ITranslation {
     word: string;

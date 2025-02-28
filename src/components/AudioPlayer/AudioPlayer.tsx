@@ -7,6 +7,7 @@ function AudioPlayer({ word }: { word: string }) {
     const audioSrc = `http://dict.youdao.com/dictvoice?type=0&audio=${word}`;
     const audioPlayer = useRef<HTMLAudioElement>(null);
 
+    //play audio when word changes
     useEffect(() => {
         audioPlayer.current && audioPlayer.current.play();
     }, [word]);

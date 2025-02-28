@@ -1,6 +1,7 @@
+// Definition of the message types
 
 enum Message {
-    SendSelectedWordPackage = 'SelectedWordPackage',
+    SEND_SELECTED_WORD_PACKAGE = 'SelectedWordPackage',
 }
 
 export { Message }
