@@ -1,0 +1,39 @@
+.word-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+    border-bottom: 1px dashed #efefef;
+    min-height: 45px;
+}
+
+.word-list-item>h2 {
+    width: 10rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+
+}
+
+.word-list-item>p {
+    flex: 1;
+    color: #B3C0CC;
+}
+
+.word-list-item>p>span {
+    color: #65E3FF;
+}
+
+.operation {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.operation>img {
+    display: none;
+    width: 25px;
+    cursor: pointer;
+}
+
+.word-list-item:hover .operation>img {
+    display: block;
+}

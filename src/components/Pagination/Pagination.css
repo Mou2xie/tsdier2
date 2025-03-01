@@ -1,0 +1,32 @@
+.container {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+}
+
+.container>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container>div>div {
+    padding: 10px 20px;
+    font-size: 1.3rem;
+    color: #383232;
+}
+
+img {
+    padding: 0 5px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.rotate {
+    transform: scaleX(-1);
+}
+
+img:hover {
+    filter: brightness(0.5);
+}

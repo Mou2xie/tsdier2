@@ -5,22 +5,39 @@ import setting from '@/assets/images/settings-line.svg';
 import { WordListItem } from '@/models/WordListItem';
 import { WordListItemComponent } from '@/components/WordListItemComponent/WordListItemComponent';
 import { StoredWord } from '@/models/StoredWord';
+import { Pagination } from '@/components/Pagination/Pagination';
 
 function NoteBook() {
 
+    const PAGELENGTH = 10;
     const [wordList, setwordList] = useState<WordListItem[]>([]);
+    const [triggerRefresh, setTriggerRefresh] = useState(false);
+    const [pageNum, setPageNum] = useState(0);
+    const [totalNum, setTotalNum] = useState(0);
 
     useEffect(() => {
-        const storedWords: StoredWord[] = [];
-        localforage.iterate<StoredWord, void>((value) => {
-            storedWords.push(value);
-        }).then(() => {
-            storedWords.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
-            storedWords.forEach((item, index) => {
-                setwordList((prev) => [...prev, new WordListItem(index, item.word, item.sentence, item.articleURL)]);
+
+        async function getStoredWords() {
+            setwordList([]);
+            const storedWords: StoredWord[] = [];
+
+            await localforage.iterate<StoredWord, void>((value) => {
+                storedWords.push(value);
             });
-        });
-    }, []);
+
+            setTotalNum(storedWords.length);
+
+            storedWords.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+
+            for (let i = pageNum * PAGELENGTH; i < pageNum * PAGELENGTH + PAGELENGTH; i++) {
+                if (storedWords[i] === undefined) {
+                    break;
+                }
+                setwordList((prev) => [...prev, new WordListItem(i, storedWords[i].word, storedWords[i].sentence, storedWords[i].articleURL)]);
+            }
+        }
+        getStoredWords();
+    }, [triggerRefresh, pageNum]);
 
     return (
         <main>
@@ -30,14 +47,13 @@ function NoteBook() {
                 </div>
                 <img src={setting} alt="setting" />
             </section>
-            <section>
+            <section className='word-list'>
                 {wordList.map((item) => (
-                    <WordListItemComponent data={item} key={item.id} />
+                    <WordListItemComponent data={item} key={item.id} trigger={() => setTriggerRefresh(!triggerRefresh)} />
                 ))}
             </section>
-
-
-        </main>
+            <Pagination pageNum={pageNum + 1} totalNum={Math.ceil(totalNum / PAGELENGTH)} setPage={setPageNum}></Pagination>
+        </main >
     );
 }
 
