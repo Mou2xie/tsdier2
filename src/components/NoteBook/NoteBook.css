@@ -5,11 +5,11 @@
     align-items: center;
     border-radius: 100px;
     padding: 0px 20px;
+    cursor: pointer;
 }
 
 .notebook:hover {
-    background: #65d3ff;
-    cursor: pointer;
+    filter: brightness(0.9);
 }
 
 .notebook>img {

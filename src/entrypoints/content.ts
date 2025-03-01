@@ -1,6 +1,7 @@
 import { sendMessage } from "webext-bridge/content-script";
 import { SelectedWordPackage } from "@/models/SelectedWordPackage";
 import { Message } from "@/models/Message";
+import { OpenFrom } from "@/models/openFrom";
 
 export default defineContentScript({
   // match all urls
@@ -27,7 +28,8 @@ export default defineContentScript({
           const selectedWordPackage: SelectedWordPackage = {
             selectedText,
             sentence,
-            currentURL
+            currentURL,
+            from: OpenFrom.PAGE,
           };
 
           // send the selected word package to the background

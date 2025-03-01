@@ -14,11 +14,10 @@ function AudioPlayer({ word }: { word: string }) {
 
     return (
         <>
-            <img className='audioPlayer' src={playAudio} alt="play audio" onClick={() => audioPlayer.current?.play()} />
+            <img className='audioPlayer' src={playAudio} alt="play pronunciation" onClick={() => audioPlayer.current?.play()} />
             <audio ref={audioPlayer} src={audioSrc} />
         </>
     );
 }
-
 
 export { AudioPlayer }

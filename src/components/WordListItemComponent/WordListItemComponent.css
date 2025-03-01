@@ -4,28 +4,36 @@
     padding: 10px 0px;
     border-bottom: 1px dashed #efefef;
     min-height: 45px;
+    cursor: pointer;
 }
 
-.word-list-item>h2 {
+.word-list-item>div {
+    display: flex;
+    align-items: center;
+}
+
+.word-list-item>div:first-child {
+    flex: 1;
+}
+
+.word-list-item>div>h2 {
     width: 10rem;
     font-size: 1.3rem;
     font-weight: 500;
 
 }
 
-.word-list-item>p {
+.word-list-item>div>p {
     flex: 1;
     color: #B3C0CC;
 }
 
-.word-list-item>p>span {
+.word-list-item span {
     color: #65E3FF;
 }
 
 .operation {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    gap: 5px;
 }
 
 .operation>img {

@@ -12,6 +12,7 @@ import { NoteBook } from '@/components/NoteBook/NoteBook';
 import { SaveWord } from '@/components/SaveWord/SaveWord';
 import { SidePanelController } from '@/components/SidePanelController/SidePanelController';
 import setting from '@/assets/images/settings-line.svg';
+import { OpenFrom } from '@/models/openFrom';
 
 function SidePanel() {
 
@@ -64,7 +65,9 @@ function SidePanel() {
         <>
           <section className='top-bar'>
             <h1>{translation?.word}</h1>
+            {selectedWordPackage?.from === OpenFrom.PAGE ? 
             <SaveWord selectedWordPackage={selectedWordPackage!} onChange={() => setTriggerNoteBookRefresh(!triggerNoteBookRefresh)}></SaveWord>
+             : null}
           </section>
           <section className='phonetic-bar'>
             {translation?.phonetic ? <div>{`/ ${translation?.phonetic} /`}</div> : null}
@@ -108,18 +111,20 @@ function SidePanel() {
         </>
       )}
 
-      <section className='bottom-bar'>
-        <div>
-          <NoteBook triggerNoteBookRefresh={triggerNoteBookRefresh}></NoteBook>
-        </div>
-        <div className='tool-bar'>
+      {
+        selectedWordPackage?.from === OpenFrom.PAGE ? (<section className='bottom-bar'>
           <div>
-            <SidePanelController></SidePanelController>
+            <NoteBook triggerNoteBookRefresh={triggerNoteBookRefresh}></NoteBook>
           </div>
-          <img src={setting} alt="setting" />
-        </div>
-        <div className='mask'></div>
-      </section>
+          <div className='tool-bar'>
+            <div>
+              <SidePanelController></SidePanelController>
+            </div>
+            <img src={setting} alt="setting" />
+          </div>
+          <div className='mask'></div>
+        </section>) : null
+      }
     </main>
   );
 }

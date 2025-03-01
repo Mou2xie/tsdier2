@@ -20,7 +20,6 @@ function NoteBook() {
         async function getStoredWords() {
             setwordList([]);
             const storedWords: StoredWord[] = [];
-
             await localforage.iterate<StoredWord, void>((value) => {
                 storedWords.push(value);
             });
@@ -43,7 +42,7 @@ function NoteBook() {
         <main>
             <section className='title-bar'>
                 <div className='title'>
-                    已标记<span>{wordList.length}</span>个单词
+                    已标记<span>{totalNum}</span>个单词
                 </div>
                 <img src={setting} alt="setting" />
             </section>
