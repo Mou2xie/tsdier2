@@ -1,6 +1,6 @@
 // Definition: Enum for LocalStorage types
 
-enum LocalStorage {
+enum ELocalStorage {
     SELECTED_WORD_PCKAGE = 'local:selectedWordPackage',
 }
-export { LocalStorage }
+export { ELocalStorage }

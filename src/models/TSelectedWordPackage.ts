@@ -1,12 +1,12 @@
 // Definition of the SelectedWordPackage type
 import { JsonValue } from 'type-fest';
-import { OpenFrom } from './openFrom';
+import { EOpenFrom } from './EOpenFrom';
 
-type SelectedWordPackage = JsonValue & {
+type TSelectedWordPackage = JsonValue & {
     selectedText: string;
     sentence: string;
     currentURL: string;
-    from: OpenFrom;
+    from: EOpenFrom;
 }
 
-export { SelectedWordPackage }
+export { TSelectedWordPackage }

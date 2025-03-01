@@ -19,7 +19,8 @@
     "localforage": "^1.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "webext-bridge": "^6.0.1"
+    "webext-bridge": "^6.0.1",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.280",

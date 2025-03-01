@@ -1,7 +1,7 @@
 
-enum OpenFrom {
+enum EOpenFrom {
     PAGE = 'page',
     NOTEBOOK = 'notebook',
 }
 
-export { OpenFrom }
+export { EOpenFrom }

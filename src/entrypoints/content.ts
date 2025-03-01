@@ -1,7 +1,7 @@
 import { sendMessage } from "webext-bridge/content-script";
-import { SelectedWordPackage } from "@/models/SelectedWordPackage";
-import { Message } from "@/models/Message";
-import { OpenFrom } from "@/models/openFrom";
+import { TSelectedWordPackage } from "@/models/TSelectedWordPackage";
+import { EMessage } from "@/models/EMessage";
+import { EOpenFrom } from "@/models/EOpenFrom";
 
 export default defineContentScript({
   // match all urls
@@ -25,15 +25,15 @@ export default defineContentScript({
           // get the sentence that contains the selected word
           let sentence = findRelatedSentence(selectedText, textContent!.split('.'));
 
-          const selectedWordPackage: SelectedWordPackage = {
+          const selectedWordPackage: TSelectedWordPackage = {
             selectedText,
             sentence,
             currentURL,
-            from: OpenFrom.PAGE,
+            from: EOpenFrom.PAGE,
           };
 
           // send the selected word package to the background
-          sendMessage(Message.SEND_SELECTED_WORD_PACKAGE, selectedWordPackage, 'background');
+          sendMessage(EMessage.SEND_SELECTED_WORD_PACKAGE, selectedWordPackage, 'background');
         }
       }
     });

@@ -3,23 +3,30 @@ import { WordListItem } from '@/models/WordListItem';
 import { useRef, useEffect } from 'react';
 import link from '@/assets/images/external-link-line.svg';
 import trash from '@/assets/images/delete-bin-7-line.svg';
-import { SelectedWordPackage } from '@/models/SelectedWordPackage';
-import { OpenFrom } from '@/models/openFrom';
+import { TSelectedWordPackage } from '@/models/TSelectedWordPackage';
+import { EOpenFrom } from '@/models/EOpenFrom';
 import { sendMessage } from "webext-bridge/content-script";
-import { Message } from "@/models/Message";
+import { EMessage } from "@/models/EMessage";
 
+interface IProps {
+    data: WordListItem;
+    trigger: () => void; // A function to trigger refresh
+}
 
-function WordListItemComponent({ data, trigger }: { data: WordListItem, trigger: () => void }) {
+function WordListItemComponent({ data, trigger }: IProps) {
     const ref = useRef<HTMLDivElement>(null);
 
     const openSidePanel = () => {
-        const selectedWordPackage: SelectedWordPackage = {
+
+        // Send the selected word package to background
+        const selectedWordPackage: TSelectedWordPackage = {
             selectedText: data.word,
             sentence: data.sentence,
             currentURL: data.url,
-            from: OpenFrom.NOTEBOOK,
+            from: EOpenFrom.NOTEBOOK,
         };
-        sendMessage(Message.SEND_SELECTED_WORD_PACKAGE, selectedWordPackage, 'background');
+
+        sendMessage(EMessage.SEND_SELECTED_WORD_PACKAGE, selectedWordPackage, 'background');
     };
 
     useEffect(() => {

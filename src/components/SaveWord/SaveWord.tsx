@@ -2,21 +2,26 @@ import star_line from '@/assets/images/star-line.svg';
 import star_fill from '@/assets/images/star-fill.svg';
 import './SaveWord.css';
 import { useState, useEffect } from 'react';
-import { SelectedWordPackage } from '@/models/SelectedWordPackage';
+import { TSelectedWordPackage } from '@/models/TSelectedWordPackage';
 import { StoredWord } from '@/models/StoredWord';
 
-function SaveWord({ selectedWordPackage, onChange }: { selectedWordPackage: SelectedWordPackage, onChange: () => void }) {
+interface IProps {
+    selectedWordPackage: TSelectedWordPackage;
+    onChange: () => void; // a function that triggers a rerender
+}
+
+function SaveWord({ selectedWordPackage, onChange }: IProps) {
 
     const [isSaved, setIsSaved] = useState(false);
 
-    // Check if the word is saved when the selectedWordPackage(selected word) changes
+    // Check if the word is already saved when the selectedWordPackage(selected word) changes
     useEffect(() => {
         StoredWord.checkIfWordExists(selectedWordPackage.selectedText).then((bool) => {
             setIsSaved(bool);
         });
     }, [selectedWordPackage]);
 
-    // Save or remove the word from the storage when the star icon is clicked
+    // Save or remove the word from storage when the star icon is clicked
     const handleSave = async () => {
         if (isSaved) {
             await StoredWord.removeWord(selectedWordPackage.selectedText);
@@ -24,8 +29,8 @@ function SaveWord({ selectedWordPackage, onChange }: { selectedWordPackage: Sele
             const storedWord = new StoredWord(selectedWordPackage.selectedText, selectedWordPackage.sentence, selectedWordPackage.currentURL);
             await storedWord.addWord();
         }
-        onChange();
-        setIsSaved(!isSaved);
+        onChange(); // trigger rerender
+        setIsSaved(!isSaved); // change save state
     }
 
     return (

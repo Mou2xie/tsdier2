@@ -1,57 +1,87 @@
 import './NoteBook.css';
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import localforage from "localforage";
 import setting from '@/assets/images/settings-line.svg';
 import { WordListItem } from '@/models/WordListItem';
 import { WordListItemComponent } from '@/components/WordListItemComponent/WordListItemComponent';
 import { StoredWord } from '@/models/StoredWord';
 import { Pagination } from '@/components/Pagination/Pagination';
+import { create } from 'zustand';
+
+interface Store {
+    currentPage: number;
+    totalPage: number;
+    setTotalPage: (totalPage: number) => void;
+    toZeroPage: () => void;
+    toPrevPage: () => void;
+    toNextPage: () => void;
+    toLastPage: () => void;
+}
+
+const useStore = create<Store>((set) => ({
+    currentPage: 0,
+    totalPage: 0,
+    setTotalPage: (totalPage: number) => set({ totalPage }),
+    toZeroPage: () => set({ currentPage: 0 }),
+    toPrevPage: () => set((state) => state.currentPage > 0 ? { currentPage: state.currentPage - 1 } : { currentPage: 0 }),
+    toNextPage: () => set((state) => state.currentPage < state.totalPage - 1 ? { currentPage: state.currentPage + 1 } : { currentPage: state.totalPage - 1 }),
+    toLastPage: () => set((state) => ({ currentPage: state.totalPage - 1 })),
+}));
 
 function NoteBook() {
 
-    const PAGELENGTH = 10;
-    const [wordList, setwordList] = useState<WordListItem[]>([]);
+    const PAGELENGTH = 10; // How many words to display in one page
+
+    const [wordListDisplayed, setwordListDisplayed] = useState<WordListItem[]>([]); // The words displayed on current page
+    const [totalWordsNum, setTotalWordsNum] = useState(0);// The total number of stored words
     const [triggerRefresh, setTriggerRefresh] = useState(false);
-    const [pageNum, setPageNum] = useState(0);
-    const [totalNum, setTotalNum] = useState(0);
+
+    const { currentPage, setTotalPage } = useStore();
 
     useEffect(() => {
 
         async function getStoredWords() {
-            setwordList([]);
+            // reset wordListDisplayed
+            setwordListDisplayed([]);
+
+            // get all stored words
             const storedWords: StoredWord[] = [];
             await localforage.iterate<StoredWord, void>((value) => {
                 storedWords.push(value);
             });
 
-            setTotalNum(storedWords.length);
+            // set total number of stored words and calculate total page
+            setTotalWordsNum(storedWords.length);
+            setTotalPage(Math.ceil(storedWords.length / PAGELENGTH));
 
+            // sort stored words by timestamp
             storedWords.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
 
-            for (let i = pageNum * PAGELENGTH; i < pageNum * PAGELENGTH + PAGELENGTH; i++) {
+            // set words to be displayed on current page
+            for (let i = currentPage * PAGELENGTH; i < currentPage * PAGELENGTH + PAGELENGTH; i++) {
                 if (storedWords[i] === undefined) {
                     break;
                 }
-                setwordList((prev) => [...prev, new WordListItem(i, storedWords[i].word, storedWords[i].sentence, storedWords[i].articleURL)]);
+                setwordListDisplayed((prev) => [...prev, new WordListItem(i, storedWords[i].word, storedWords[i].sentence, storedWords[i].articleURL)]);
             }
         }
         getStoredWords();
-    }, [triggerRefresh, pageNum]);
+    }, [triggerRefresh, currentPage]);
 
     return (
         <main>
             <section className='title-bar'>
                 <div className='title'>
-                    已标记<span>{totalNum}</span>个单词
+                    已标记<span>{totalWordsNum}</span>个单词
                 </div>
                 <img src={setting} alt="setting" />
             </section>
             <section className='word-list'>
-                {wordList.map((item) => (
+                {wordListDisplayed.map((item) => (
                     <WordListItemComponent data={item} key={item.id} trigger={() => setTriggerRefresh(!triggerRefresh)} />
                 ))}
             </section>
-            <Pagination pageNum={pageNum + 1} totalNum={Math.ceil(totalNum / PAGELENGTH)} setPage={setPageNum}></Pagination>
+            <Pagination useStore={useStore}></Pagination>
         </main >
     );
 }

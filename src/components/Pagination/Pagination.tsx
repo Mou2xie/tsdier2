@@ -2,35 +2,23 @@ import './Pagination.css';
 import next from '@/assets/images/arrow-right-s-line.svg';
 import toEnd from '@/assets/images/skip-right-line.svg';
 
-function Pagination({ pageNum, totalNum, setPage }: { pageNum: number, totalNum: number, setPage: (pageNum: any) => void }) {
+interface IProps {
+    useStore: any;
+}
 
-    const pageZero = () => {
-        setPage(0)
-    }
+// take useStore as a prop
+function Pagination({ useStore }: IProps) {
 
-    const prevPage = () => {
-        if (pageNum > 1) {
-            setPage((p: number) => p - 1)
-        }
-    }
-
-    const nextPage = () => {
-        if (pageNum < totalNum) {
-            setPage((p: number) => p + 1)
-        }
-    }
-
-    const pageEnd = () => { setPage(totalNum - 1) }
-
+    const { currentPage, totalPage, toZeroPage, toPrevPage, toNextPage, toLastPage } = useStore();
 
     return (
         <section className='container'>
             <div>
-                <img className='rotate' src={toEnd} alt="go to last page" onClick={prevPage} />
-                <img className='rotate' src={next} alt="next page" onClick={pageZero} />
-                <div>{`${pageNum} / ${totalNum}`}</div>
-                <img src={next} alt="next page" onClick={nextPage} />
-                <img src={toEnd} alt="go to last page" onClick={pageEnd} />
+                <img className='rotate' src={toEnd} alt="go to last page" onClick={toZeroPage} />
+                <img className='rotate' src={next} alt="next page" onClick={toPrevPage} />
+                <div>{`${currentPage + 1} / ${totalPage}`}</div>
+                <img src={next} alt="next page" onClick={toNextPage} />
+                <img src={toEnd} alt="go to last page" onClick={toLastPage} />
             </div>
         </section>
     );

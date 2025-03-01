@@ -2,7 +2,11 @@ import { useRef, useEffect } from 'react';
 import playAudio from '@/assets/images/volume-up-fill.svg';
 import './AudioPlayer.css';
 
-function AudioPlayer({ word }: { word: string }) {
+interface IProps {
+    word: string;
+}
+
+function AudioPlayer({ word }: IProps) {
 
     const audioSrc = `http://dict.youdao.com/dictvoice?type=0&audio=${word}`;
     const audioPlayer = useRef<HTMLAudioElement>(null);

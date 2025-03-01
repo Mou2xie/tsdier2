@@ -1,7 +1,7 @@
 // Definition of the message types
 
-enum Message {
+enum EMessage {
     SEND_SELECTED_WORD_PACKAGE = 'SelectedWordPackage',
 }
 
-export { Message }
+export { EMessage }

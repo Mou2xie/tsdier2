@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
-import { SupaKey } from '@/models/SupaKey';
+import { ESupaKey } from '@/models/ESupaKey';
 
 
 // Create a single supabase client for interacting with your database
-const supabaseClient = createClient(SupaKey.SUPABASE_URL, SupaKey.SUPABASE_KEY);
+const supabaseClient = createClient(ESupaKey.SUPABASE_URL, ESupaKey.SUPABASE_KEY);
 
 export { supabaseClient }
