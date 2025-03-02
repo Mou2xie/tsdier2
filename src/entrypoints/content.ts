@@ -2,6 +2,8 @@ import { sendMessage } from "webext-bridge/content-script";
 import { TSelectedWordPackage } from "@/models/TSelectedWordPackage";
 import { EMessage } from "@/models/EMessage";
 import { EOpenFrom } from "@/models/EOpenFrom";
+import { storage } from "wxt/storage";
+import { ELocalStorage } from "@/models/ELocalStorage";
 
 export default defineContentScript({
   // match all urls
@@ -32,8 +34,13 @@ export default defineContentScript({
             from: EOpenFrom.PAGE,
           };
 
-          // send the selected word package to the background
-          sendMessage(EMessage.SEND_SELECTED_WORD_PACKAGE, selectedWordPackage, 'background');
+          // check if the side panel is allowed to open
+          storage.getItem(ELocalStorage.STOPSIDEPANEL).then((value) => {
+            if (!value) {
+              // send the selected word package to the background
+              sendMessage(EMessage.SEND_SELECTED_WORD_PACKAGE, selectedWordPackage, 'background');
+            }
+          });
         }
       }
     });

@@ -1,6 +1,7 @@
 import './NoteBook.css';
 import { useState, useEffect, use } from "react";
 import localforage from "localforage";
+import exportFile from '@/assets/images/download-2-line.svg';
 import setting from '@/assets/images/settings-line.svg';
 import { WordListItem } from '@/models/WordListItem';
 import { WordListItemComponent } from '@/components/WordListItemComponent/WordListItemComponent';
@@ -74,7 +75,8 @@ function NoteBook() {
                 <div className='title'>
                     已标记<span>{totalWordsNum}</span>个单词
                 </div>
-                <img src={setting} alt="setting" onClick={()=>chrome.tabs.create({url:'options.html'})}/>
+                {totalWordsNum > 0 && <img src={exportFile} alt="export" />}
+                <img src={setting} alt="setting" onClick={() => chrome.tabs.create({ url: 'options.html' })} />
             </section>
             <section className='word-list'>
                 {wordListDisplayed.map((item) => (

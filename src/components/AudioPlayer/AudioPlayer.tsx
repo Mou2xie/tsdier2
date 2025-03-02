@@ -1,6 +1,8 @@
 import { useRef, useEffect } from 'react';
 import playAudio from '@/assets/images/volume-up-fill.svg';
 import './AudioPlayer.css';
+import { storage } from 'wxt/storage';
+import { ELocalStorage } from '@/models/ELocalStorage';
 
 interface IProps {
     word: string;
@@ -13,7 +15,13 @@ function AudioPlayer({ word }: IProps) {
 
     //play audio when word changes
     useEffect(() => {
-        audioPlayer.current && audioPlayer.current.play();
+        async function init() {
+            const isAutoPronounceEnabled = await storage.getItem(ELocalStorage.MUTE);
+            if (!isAutoPronounceEnabled) {
+                audioPlayer.current && audioPlayer.current.play();
+            }
+        }
+        init();
     }, [word]);
 
     return (
