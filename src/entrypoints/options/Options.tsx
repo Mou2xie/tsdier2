@@ -2,9 +2,12 @@ import './Options.css'
 
 function Options() {
   return (
-    <div>
-      <h1>Options</h1>
-    </div>
+    <main>
+      <div>
+        <h1>Options</h1>
+      </div>
+    </main>
+
   );
 }
 
