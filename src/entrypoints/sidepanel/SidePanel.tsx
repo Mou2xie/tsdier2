@@ -120,7 +120,7 @@ function SidePanel() {
             <div>
               <SidePanelController></SidePanelController>
             </div>
-            <img src={setting} alt="setting" />
+            <img src={setting} alt="setting" onClick={() => { chrome.tabs.create({ url: 'options.html' }) }} />
           </div>
           <div className='mask'></div>
         </section>) : null

@@ -21,7 +21,11 @@ main {
 
 .title-bar img {
     width: 30px;
+    cursor: pointer;
+}
 
+.title-bar img:hover {
+    filter: brightness(0.9);
 }
 
 .word-list {

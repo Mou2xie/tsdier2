@@ -101,6 +101,11 @@ hr {
 
 .tool-bar>img {
     width: 30px;
+    cursor: pointer;
+}
+
+.tool-bar>img:hover {
+    filter: brightness(0.9);
 }
 
 .mask {

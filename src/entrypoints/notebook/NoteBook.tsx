@@ -74,7 +74,7 @@ function NoteBook() {
                 <div className='title'>
                     已标记<span>{totalWordsNum}</span>个单词
                 </div>
-                <img src={setting} alt="setting" />
+                <img src={setting} alt="setting" onClick={()=>chrome.tabs.create({url:'options.html'})}/>
             </section>
             <section className='word-list'>
                 {wordListDisplayed.map((item) => (
