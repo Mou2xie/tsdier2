@@ -81,7 +81,7 @@ function Options() {
         <a href="https://www.speakingpass.com/" target="_blank">SpeakingPass-雅思口语考试真题库</a>
       </section>
       <section className='ad'>
-        <div>🐶 联系作者：</div>
+        <div>🐱 联系作者：</div>
         <p>jedxie2022@gmail.com</p>
       </section>
     </main>

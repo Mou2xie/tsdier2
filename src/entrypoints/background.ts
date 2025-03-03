@@ -6,6 +6,14 @@ import { EMessage } from "@/models/EMessage";
 
 export default defineBackground(() => {
 
+  // open the welcome page after the extension is installed
+  chrome.runtime.onInstalled.addListener((details) => {
+    if (details.reason === "install") {
+      chrome.tabs.create({ url: "welcomepage.html" });
+    }
+  });
+
+
   // set the action click behavior to open the panel
   chrome.action.onClicked.addListener(() => {
     chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true });
