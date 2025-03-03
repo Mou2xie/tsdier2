@@ -11,7 +11,7 @@ export default defineBackground(() => {
     chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true });
   });
 
-  // listen for selected word from the content script
+  // listen for selected word
   onMessage(EMessage.SEND_SELECTED_WORD_PACKAGE, (message) => {
 
     const selectedWordPackage = message.data as TSelectedWordPackage;

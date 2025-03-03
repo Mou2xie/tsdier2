@@ -81,10 +81,16 @@ h1 {
     font-size: 18px;
 }
 
-.ad> a {
+.ad>a {
     display: inline-block;
     margin-top: 15px;
     color: #65E3FF;
+}
+
+.ad>p {
+    margin-top: 10px;
+    color: #3B4349;
+    font-size: 16px;
 }
 
 .radio-box[type="radio"] {

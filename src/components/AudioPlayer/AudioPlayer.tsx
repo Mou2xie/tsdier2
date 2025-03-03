@@ -16,6 +16,7 @@ function AudioPlayer({ word }: IProps) {
     //play audio when word changes
     useEffect(() => {
         async function init() {
+            //check if pronounce is disabled
             const isAutoPronounceEnabled = await storage.getItem(ELocalStorage.MUTE);
             if (!isAutoPronounceEnabled) {
                 audioPlayer.current && audioPlayer.current.play();

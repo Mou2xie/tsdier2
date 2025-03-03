@@ -12,6 +12,7 @@ function Options() {
   const [stopSidePanel, setStopSidePanel] = useState(false);
 
 
+  // get settings from local storage initially
   useEffect(() => {
     storage.getItem(ELocalStorage.AUTO_SAVE_WORD).then((value) => {
       setAutoSaveWord(!!value);
@@ -78,6 +79,10 @@ function Options() {
       <section className='ad'>
         <div>⭐️ 更多产品：</div>
         <a href="https://www.speakingpass.com/" target="_blank">SpeakingPass-雅思口语考试真题库</a>
+      </section>
+      <section className='ad'>
+        <div>🐶 联系作者：</div>
+        <p>jedxie2022@gmail.com</p>
       </section>
     </main>
 

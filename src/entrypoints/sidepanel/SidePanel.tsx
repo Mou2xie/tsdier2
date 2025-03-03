@@ -47,6 +47,7 @@ function SidePanel() {
         .eq('word', selectedWordPackage.selectedText)
         .then((res) => {
           if (res?.data && res?.data?.length > 0) {
+            // covert raw data to translated data
             setTranslation(translationHandler(res.data[0] as ISupabaseRes));
           } else {
             setTranslation(undefined);
@@ -60,14 +61,15 @@ function SidePanel() {
   return (
     <main>
       {!translation ? (
-        <div>No translation available</div>
+        <div className='error'>No translation available</div>
       ) : (
         <>
           <section className='top-bar'>
             <h1>{translation?.word}</h1>
-            {selectedWordPackage?.from === EOpenFrom.PAGE ?
+            {/* only opened from web page show save word button */}
+            {selectedWordPackage?.from === EOpenFrom.PAGE &&
               <SaveWord selectedWordPackage={selectedWordPackage!} onChange={() => setTriggerNoteBookRefresh(!triggerNoteBookRefresh)}></SaveWord>
-              : null}
+            }
           </section>
           <section className='phonetic-bar'>
             {translation?.phonetic ? <div>{`/ ${translation?.phonetic} /`}</div> : null}
@@ -111,8 +113,9 @@ function SidePanel() {
         </>
       )}
 
+      {/* only opend from web page show bottom bar */}
       {
-        selectedWordPackage?.from === EOpenFrom.PAGE ? (<section className='bottom-bar'>
+        selectedWordPackage?.from === EOpenFrom.PAGE && (<section className='bottom-bar'>
           <div>
             <NoteBook triggerNoteBookRefresh={triggerNoteBookRefresh}></NoteBook>
           </div>
@@ -123,7 +126,7 @@ function SidePanel() {
             <img src={setting} alt="setting" onClick={() => { chrome.tabs.create({ url: 'options.html' }) }} />
           </div>
           <div className='mask'></div>
-        </section>) : null
+        </section>)
       }
     </main>
   );

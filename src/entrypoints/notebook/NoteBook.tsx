@@ -8,6 +8,7 @@ import { WordListItemComponent } from '@/components/WordListItemComponent/WordLi
 import { StoredWord } from '@/models/StoredWord';
 import { Pagination } from '@/components/Pagination/Pagination';
 import { create } from 'zustand';
+import { exportToExcel } from '@/utils/exportExcel';
 
 interface Store {
     currentPage: number;
@@ -19,6 +20,7 @@ interface Store {
     toLastPage: () => void;
 }
 
+// store for pagination
 const useStore = create<Store>((set) => ({
     currentPage: 0,
     totalPage: 0,
@@ -35,7 +37,7 @@ function NoteBook() {
 
     const [wordListDisplayed, setwordListDisplayed] = useState<WordListItem[]>([]); // The words displayed on current page
     const [totalWordsNum, setTotalWordsNum] = useState(0);// The total number of stored words
-    const [triggerRefresh, setTriggerRefresh] = useState(false);
+    const [triggerRefresh, setTriggerRefresh] = useState(false); // Trigger to refresh the page
 
     const { currentPage, setTotalPage } = useStore();
 
@@ -75,7 +77,7 @@ function NoteBook() {
                 <div className='title'>
                     已标记<span>{totalWordsNum}</span>个单词
                 </div>
-                {totalWordsNum > 0 && <img src={exportFile} alt="export" />}
+                {totalWordsNum > 0 && <img src={exportFile} alt="export" onClick={exportToExcel} />}
                 <img src={setting} alt="setting" onClick={() => chrome.tabs.create({ url: 'options.html' })} />
             </section>
             <section className='word-list'>

@@ -8,6 +8,7 @@ function SidePanelController() {
     const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
 
     useEffect(() => {
+        // get setting from local storage
         storage.getItem(ELocalStorage.STOPSIDEPANEL).then((value) => {
             setIsSidePanelOpen(!!value);
         });

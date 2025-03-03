@@ -25,6 +25,7 @@ function SaveWord({ selectedWordPackage, onChange }: IProps) {
 
             // Check if the auto save feature is enabled and save the word automatically
             const isAutoSaveEnabled = await storage.getItem(ELocalStorage.AUTO_SAVE_WORD);
+            // if the word is not saved and the auto save feature is enabled, save the word
             if (isAutoSaveEnabled && _isSaved === false) {
                 btn.current?.click();
             }

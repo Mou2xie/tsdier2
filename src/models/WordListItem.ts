@@ -1,3 +1,5 @@
+// word data to be displayed in notebook word list
+
 import localforage from "localforage";
 
 class WordListItem {
