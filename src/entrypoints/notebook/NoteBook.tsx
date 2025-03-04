@@ -49,8 +49,15 @@ function NoteBook() {
 
             // get all stored words
             const storedWords: StoredWord[] = [];
-            await localforage.iterate<StoredWord, void>((value) => {
-                storedWords.push(value);
+            await localforage.iterate<StoredWord, void>((value: StoredWord | any) => {
+
+                // Compatible with old versions, convert old data into StoredWord
+                if (value.selectedText) {
+                    const _value = new StoredWord(value.selectedText, value.sentence, value.currentURL);
+                    storedWords.push(_value);
+                } else {
+                    storedWords.push(value);
+                }
             });
 
             // set total number of stored words and calculate total page
